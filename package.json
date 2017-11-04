@@ -8,7 +8,7 @@
     "url": "git+https://github.com/jykim16/botReactor"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "license": "MIT",
   "dependencies": {

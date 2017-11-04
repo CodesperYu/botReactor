@@ -108,6 +108,7 @@ app.post('/webhook', function (req, res) {
           console.log("[app.post] Webhook event props: ", propertyNames.join());
 
           if (messagingEvent.message) {
+            processSeanMessageFromPage(messagingEvent);
             processMessageFromPage(messagingEvent);
           } else if (messagingEvent.postback) {
             // user replied by tapping a postback button
@@ -178,6 +179,10 @@ function processMessageFromPage(event) {
         // handle 'help' as a special case
         sendHelpOptionsAsQuickReplies(senderID);
         break;
+      case 'where':
+        // handle 'help' as a special case
+        seanMessage(senderID);
+        break;
 
       default:
         // otherwise, just echo it back to the sender
@@ -225,6 +230,29 @@ function sendHelpOptionsAsQuickReplies(recipientId) {
   };
   callSendAPI(messageData);
 }
+
+
+function seanMessage(recipientId) {
+  console.log("[sendHelpOptionsAsQuickReplies] Sending help options menu");
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: "ljhljhlkjhlkjh.",
+      quick_replies: [
+        {
+          "content_type": "text",
+          "title": "Rotation",
+          "payload": "QR_ROTATION_1"
+        },
+      ]
+    }
+  };
+  callSendAPI(messageData);
+}
+
+
 
 /*
  * user tapped a Quick Reply button; respond with the appropriate content
